@@ -36,9 +36,9 @@ public class IndexController {
         return "manager";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String loginForm() {
-        return "login";
+        return "loginForm";
     }
 
     @GetMapping("/join")
