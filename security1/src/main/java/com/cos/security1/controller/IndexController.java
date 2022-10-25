@@ -22,16 +22,19 @@ public class IndexController {
     }
 
     @GetMapping("/user")
+    @ResponseBody
     public String user() {
         return "user";
     }
 
     @GetMapping("/admin")
+    @ResponseBody
     public String admin() {
         return "admin";
     }
 
     @GetMapping("/manager")
+    @ResponseBody
     public String manager() {
         return "manager";
     }
