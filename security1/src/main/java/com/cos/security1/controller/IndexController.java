@@ -74,7 +74,7 @@ public class IndexController {
     public String info() {
         return "personal info";
     }
-    
+
     @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") // 두가지 역할을 동시에 지정할 수 있음
     @GetMapping("/data")
     @ResponseBody
