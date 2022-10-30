@@ -3,6 +3,9 @@ package com.cos.security1.controller;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,5 +66,19 @@ public class IndexController {
     @ResponseBody
     public String joinProc() {
         return "sign up done";
+    }
+
+    @GetMapping("/info")
+    @Secured("ROLE_ADMIN") // ADMIN만 들어갈 수 있음
+    @ResponseBody
+    public String info() {
+        return "personal info";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") // 두가지 역할을 동시에 지정할 수 있음
+    @GetMapping("/data")
+    @ResponseBody
+    public String data() {
+        return "data";
     }
 }

@@ -2,13 +2,15 @@ package com.cos.security1.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@EnableWebSecurity // spring security filter(밑에 SecurityConfig 가 됨) 가 spring filter chain에 등록이 된다
+@EnableWebSecurity // spring security filter(밑에 SecurityConfig 가 됨) 가 spring filter chain 에 등록이 된다
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 어노테이션 활성화, preAuthorize 어노테이션 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Bean으로 등록
@@ -18,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println("WHAT");
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/user/**").authenticated()
