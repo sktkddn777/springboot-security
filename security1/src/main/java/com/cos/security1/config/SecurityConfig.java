@@ -3,6 +3,8 @@ package com.cos.security1.config;
 // 구글 로그인이 완료된 뒤의 후처리가 필요!
 // (코드받기 -> 엑세스토큰 -> 사용자 프로필 가져옴 -> 받은 정보를 이용 ex. 회원가입 자동 진행)
 
+import com.cos.security1.config.oauth.PrincipalOauth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,10 +13,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity // spring security filter(밑에 SecurityConfig 가 됨) 가 spring filter chain 에 등록이 된다
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 어노테이션 활성화, preAuthorize 어노테이션 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final PrincipalOauth2UserService principalOauth2UserService;
 
     // Bean으로 등록
     @Bean
@@ -38,6 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/loginForm") // 구글 로그인이 완료된 뒤의 후처리가 필요!
                 .userInfoEndpoint()
-                .userService(null);
+                .userService(principalOauth2UserService);
     }
 }
