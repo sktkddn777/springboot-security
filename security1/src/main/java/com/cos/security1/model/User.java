@@ -28,6 +28,9 @@ public class User {
     private String email;
     private String role; // ROLE_USER, ROLE_ADMIN
 
+    private String provider; // Oauth 로그인 여부 확인
+    private String providerId;
+
     @CreationTimestamp
     private Timestamp createDate;
 
