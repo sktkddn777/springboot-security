@@ -1,5 +1,8 @@
 package com.cos.security1.config;
 
+// 구글 로그인이 완료된 뒤의 후처리가 필요!
+// (코드받기 -> 엑세스토큰 -> 사용자 프로필 가져옴 -> 받은 정보를 이용 ex. 회원가입 자동 진행)
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -33,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/") // loginForm을 통해 로그인하면 / 경로로 보내지만, 특정 url 요청 후 로그인을 진행해 성공하면 그 url 로 보냄
                 .and()
                 .oauth2Login()
-                .loginPage("/loginForm"); // 구글 로그인이 완료된 뒤의 후처리가 필요!
+                .loginPage("/loginForm") // 구글 로그인이 완료된 뒤의 후처리가 필요!
+                .userInfoEndpoint()
+                .userService(null);
     }
 }
